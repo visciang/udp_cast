@@ -52,6 +52,9 @@ defmodule UdpCast do
       Configuration for UDP broadcast communication.
       """
 
+      @default_bind_addr {0, 0, 0, 0}
+      @default_port 45_892
+
       @enforce_keys [:on_cast]
       defstruct @enforce_keys ++
                   [
@@ -60,8 +63,8 @@ defmodule UdpCast do
                   ]
 
       @typedoc """
-      - `:bind_addr` - Local IP address to bind to (default: {0,0,0,0})
-      - `:port` - UDP port number for sending/receiving broadcasts (default: 45892)
+      - `:bind_addr` - Local IP address to bind to (default: #{inspect(@default_bind_addr)})
+      - `:port` - UDP port number for sending/receiving broadcasts (default: #{inspect(@default_port)})
       - `:on_cast` - Callback function for handling received messages
       """
       @type t :: %__MODULE__{
@@ -76,22 +79,28 @@ defmodule UdpCast do
       Configuration for UDP multicast group communication.
       """
 
+      @default_bind_addr {0, 0, 0, 0}
+      @default_port 45_892
+      @default_multicast_addr {233, 252, 1, 32}
+      @default_multicast_ttl 1
+      @default_multicast_if nil
+
       @enforce_keys [:on_cast]
       defstruct @enforce_keys ++
                   [
-                    bind_addr: {0, 0, 0, 0},
-                    port: 45_892,
-                    multicast_addr: {233, 252, 1, 32},
-                    multicast_ttl: 1,
-                    multicast_if: nil
+                    bind_addr: @default_bind_addr,
+                    port: @default_port,
+                    multicast_addr: @default_multicast_addr,
+                    multicast_ttl: @default_multicast_ttl,
+                    multicast_if: @default_multicast_if
                   ]
 
       @typedoc """
-      - `:bind_addr` - Local IP address to bind to (default: {0,0,0,0})
-      - `:port` - UDP port number for sending/receiving multicast messages (default: 45892)
-      - `:multicast_addr` - Multicast group IP address (default: {233,252,1,32})
-      - `:multicast_if` - Local interface for multicast (default: nil)
-      - `:multicast_ttl` - Time-to-live for multicast packets (default: 1)
+      - `:bind_addr` - Local IP address to bind to (default: #{inspect(@default_bind_addr)})
+      - `:port` - UDP port number for sending/receiving multicast messages (default: #{inspect(@default_port)})
+      - `:multicast_addr` - Multicast group IP address (default: #{inspect(@default_multicast_addr)})
+      - `:multicast_if` - Local interface for multicast (default: #{inspect(@default_multicast_if)})
+      - `:multicast_ttl` - Time-to-live for multicast packets (default: #{inspect(@default_multicast_ttl)})
       - `:on_cast` - Callback function for handling received messages
       """
       @type t :: %__MODULE__{
