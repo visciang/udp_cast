@@ -27,7 +27,7 @@ defmodule UdpCastTest do
           :"test_server_1_#{idx}",
           %UdpCast.Args.Multicast{
             multicast_addr: {233, 252, 1, 40},
-            port: 40_001,
+            # port: 40_001,
             on_cast: forward_cast_to_self()
           }
         )
@@ -39,7 +39,7 @@ defmodule UdpCastTest do
           :"test_server_2_#{idx}",
           %UdpCast.Args.Multicast{
             multicast_addr: {233, 252, 1, 50},
-            port: 40_002,
+            # port: 40_002,
             on_cast: forward_cast_to_self()
           }
         )
